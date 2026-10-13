@@ -69,7 +69,8 @@ This kit gives each of those a file in the repo: one rulebook, one skills librar
 │   └── task-map.json              Generated, for agents
 ├── .pre-commit-config.yaml        Whitespace, YAML and large-file hooks
 ├── .gitattributes                 Line-ending rules
-└── .gitignore
+├── .gitignore
+└── LICENSE                        MIT licence for this repo's own files
 ```
 
 ## Quick start
@@ -88,7 +89,7 @@ Do this once for each new project.
 5. **Enable the dependency graph** so dependency review works: `gh api -X PUT repos/<owner>/<repo>/vulnerability-alerts`.
 6. **Add CI** by following [docs/ci.md](./docs/ci.md), then make its checks required on `main`.
 7. **Connect your assistant** with [docs/ai-setup.md](./docs/ai-setup.md).
-8. **Add a `LICENSE`** (this kit ships without one).
+8. **Update the `LICENSE`.** The kit ships with an MIT licence in the original author's name; replace the copyright line with yours, or pick another licence.
 
 Check it works: open a fresh chat in your assistant and ask "What are the rules for this repo and what task should I pick?". It should repeat your `AGENTS.md` and answer from the task map.
 
@@ -272,6 +273,6 @@ CI for your own code (lint, tests, build) is not included, because it depends on
 | An MCP server doesn't start | Check Node.js 22+ and, for the GitHub server in Cursor, Claude Code or Codex, that `GITHUB_PERSONAL_ACCESS_TOKEN` is set. |
 
 ## Licences
-This repo has no `LICENSE` file yet; add one before sharing the project.
+This repo's own files (rules, scripts, workflows, docs) are under the [MIT licence](./LICENSE).
 
 The skills are third-party and keep their own licences (MIT, and Apache-2.0 for `impeccable`). The texts are in [.agents/licenses/](./.agents/licenses/) and the sources are listed in [.agents/SOURCES.md](./.agents/SOURCES.md).
