@@ -82,7 +82,7 @@ def parse_todo(text: str) -> dict[str, dict[str, Any]]:
 
 def fetch_issues(issues_json: Path | None) -> dict[int, dict[str, Any]]:
     if issues_json:
-        raw = json.loads(issues_json.read_text())
+        raw = json.loads(issues_json.read_text(encoding="utf-8"))
     else:
         try:
             out = subprocess.run(
@@ -369,17 +369,17 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    data = build(parse_todo(TODO.read_text()), fetch_issues(args.issues_json))
+    data = build(parse_todo(TODO.read_text(encoding="utf-8")), fetch_issues(args.issues_json))
     if not args.force and OUT_JSON.exists():
         try:
-            if json.loads(OUT_JSON.read_text()).get("data_hash") == data["data_hash"]:
+            if json.loads(OUT_JSON.read_text(encoding="utf-8")).get("data_hash") == data["data_hash"]:
                 print("Task map unchanged.")
                 return
         except json.JSONDecodeError:
             pass
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    OUT_JSON.write_text(json.dumps({"generated_at": generated_at, **data}, indent=2) + "\n")
-    OUT_HTML.write_text(render_html(data, generated_at))
+    OUT_JSON.write_text(json.dumps({"generated_at": generated_at, **data}, indent=2) + "\n", encoding="utf-8")
+    OUT_HTML.write_text(render_html(data, generated_at), encoding="utf-8")
     c = data["counts"]
     print(
         f"Task map updated: {c['done']} done, {c['in_progress']} in progress, "
