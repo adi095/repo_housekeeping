@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task map</title>
+<style>
+:root { --bg:#f5f7f3; --panel:#fff; --border:#dde5da; --text:#26332d; --muted:#5f6f67; --accent:#4f7d63; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); }
+header { padding:18px 24px; background:var(--panel); border-bottom:1px solid var(--border); }
+h1 { margin:0 0 4px; font-size:20px; } h2 { font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); margin:22px 0 8px; }
+.muted { color:var(--muted); font-size:13px; }
+main { padding:0 24px 40px; }
+.stats { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+.stat { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:6px 12px; font-size:14px; }
+table.picks { border-collapse:collapse; background:var(--panel); border:1px solid var(--border); border-radius:12px; width:100%; }
+table.picks th { text-align:left; padding:10px 14px; width:60px; border-bottom:1px solid var(--border); }
+table.picks td { padding:8px 14px; border-bottom:1px solid var(--border); }
+.chip { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12.5px; margin:2px 2px; text-decoration:none; color:var(--text); border:1px solid rgba(0,0,0,.08); white-space:nowrap; }
+.s-done { background:#e3efe6; } .s-in_progress { background:#dbe8f5; } .s-picked_early { background:#fbe3d6; }
+.s-ready { background:#d9f2df; border-color:#8cc79c; } .s-blocked { background:#eef0ee; color:#6b756f; }
+.warn { background:#fdf1ea; border:1px solid #f1c7b0; border-radius:12px; padding:10px 16px; margin-top:16px; font-size:14px; }
+.warn ul { margin:6px 0 0; padding-left:18px; }
+.board { display:flex; gap:12px; overflow-x:auto; padding-bottom:12px; align-items:flex-start; }
+.col { min-width:230px; max-width:230px; } .col h3 { font-size:13px; color:var(--muted); margin:0 0 8px; }
+.card { background:var(--panel); border:1px solid var(--border); border-left:5px solid #c9d3cc; border-radius:10px; padding:8px 10px; margin-bottom:8px; font-size:13px; }
+.card.s-done { border-left-color:#6f9f7e; opacity:.7; } .card.s-in_progress { border-left-color:#5b8ec2; }
+.card.s-picked_early { border-left-color:#d9825b; } .card.s-ready { border-left-color:#3fae5c; box-shadow:0 0 0 1px #8cc79c; }
+.card.s-blocked { background:#fafbfa; }
+.card .title { font-weight:600; margin:2px 0; } .card .meta, .card .deps, .card .waits { color:var(--muted); font-size:12px; margin-top:2px; }
+.card a { color:var(--accent); } .crit { background:#fff3c4; border-radius:6px; padding:0 5px; font-size:11px; }
+.prio { background:#eef0ee; border-radius:6px; padding:0 5px; font-size:11px; }
+.filters button { border:1px solid var(--border); background:var(--panel); border-radius:999px; padding:5px 12px; margin-right:4px; cursor:pointer; }
+.filters button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.card.hide { display:none; }
+</style></head><body>
+<header>
+  <h1>Task map</h1>
+  <div class="muted">Synced from GitHub issues 2026-10-13 01:30 UTC · source: <code>tasks/todo.md</code> + issue status · regenerate: <code>make task-map</code></div>
+  <div class="stats">
+    <span class="stat">✅ Done <b>0</b>/3</span><span class="stat">🔨 In progress <b>0</b></span>
+    <span class="stat">⚠️ Picked early <b>0</b></span><span class="stat">🟢 Ready <b>1</b></span>
+    <span class="stat">⏳ Blocked <b>2</b></span>
+  </div>
+</header>
+<main>
+  <h2>Pick next (ready, unassigned, best first)</h2>
+  <table class="picks"><tr><th>Dev</th><td><a class="chip s-ready" href="https://github.com/adi095/repo_housekeeping/issues/1">🟢 T01 Describe the project and set the commands</a></td></tr></table>
+  <p class="muted">How to pick: choose a 🟢 task for your role, <b>assign yourself on the issue</b> (that marks it picked), then work on a branch and open a PR. Never start a ⏳ task.</p>
+  
+  <h2>Critical path (any delay here delays submission)</h2>
+  <div><a class="chip s-ready" href="https://github.com/adi095/repo_housekeeping/issues/1" title="Describe the project and set the commands">🟢 T01</a> → <a class="chip s-blocked" href="https://github.com/adi095/repo_housekeeping/issues/2" title="Scaffold the application">⏳ T02</a></div>
+  <h2>All tasks by step</h2>
+  <div class="filters"><button data-role="All roles">All roles</button><button data-role="Dev">Dev</button></div>
+  <p class="muted"><span class="chip s-done">✅ Done</span> <span class="chip s-in_progress">🔨 In progress</span> <span class="chip s-picked_early">⚠️ Picked before prerequisites are done</span> <span class="chip s-ready">🟢 Ready to pick</span> <span class="chip s-blocked">⏳ Blocked</span></p>
+  <div class="board"><section class="col"><h3>Step 0</h3><div class="card s-ready" data-roles="Dev" data-status="ready"><div class="top"><span title="Ready to pick">🟢</span> <b>T01</b> <a href="https://github.com/adi095/repo_housekeeping/issues/1">#1</a> <span class="crit" title="On the critical path">critical path</span></div><div class="title">Describe the project and set the commands</div><div class="meta">Dev · XS · unassigned</div><div class="deps">Needs: none</div></div></section><section class="col"><h3>Step 1</h3><div class="card s-blocked" data-roles="Dev" data-status="blocked"><div class="top"><span title="Blocked">⏳</span> <b>T02</b> <a href="https://github.com/adi095/repo_housekeeping/issues/2">#2</a> <span class="crit" title="On the critical path">critical path</span></div><div class="title">Scaffold the application</div><div class="meta">Dev · S · unassigned</div><div class="deps">Needs: <a class="chip s-ready" href="https://github.com/adi095/repo_housekeeping/issues/1" title="Describe the project and set the commands">🟢 T01</a></div><div class="waits">Waiting on: <a class="chip s-ready" href="https://github.com/adi095/repo_housekeeping/issues/1" title="Describe the project and set the commands">🟢 T01</a></div></div><div class="card s-blocked" data-roles="Dev" data-status="blocked"><div class="top"><span title="Blocked">⏳</span> <b>T03</b> <a href="https://github.com/adi095/repo_housekeeping/issues/3">#3</a> <span class="prio">Should</span></div><div class="title">Write the first user story and spec</div><div class="meta">Dev · S · unassigned</div><div class="deps">Needs: <a class="chip s-ready" href="https://github.com/adi095/repo_housekeeping/issues/1" title="Describe the project and set the commands">🟢 T01</a></div><div class="waits">Waiting on: <a class="chip s-ready" href="https://github.com/adi095/repo_housekeeping/issues/1" title="Describe the project and set the commands">🟢 T01</a></div></div></section></div>
+</main>
+<script>
+document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(x => x.classList.toggle('on', x === b));
+  const role = b.dataset.role;
+  document.querySelectorAll('.card').forEach(c => c.classList.toggle('hide',
+    role !== 'All roles' && !c.dataset.roles.split(' ').some(r => r === role || r === 'All')));
+}));
+document.querySelector('.filters button').classList.add('on');
+</script>
+</body></html>

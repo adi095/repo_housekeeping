@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-10-13 01:30 UTC",
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "Describe the project and set the commands",
+      "issue": 1,
+      "owner": "Dev",
+      "roles": [
+        "Dev"
+      ],
+      "size": "XS",
+      "priority": "Must",
+      "week": 1,
+      "deps": [],
+      "status": "ready",
+      "assignees": [],
+      "waiting_on": [],
+      "unlocks": [
+        "T02",
+        "T03"
+      ],
+      "step": 0,
+      "chain": 2,
+      "critical": true
+    },
+    {
+      "id": "T02",
+      "title": "Scaffold the application",
+      "issue": 2,
+      "owner": "Dev",
+      "roles": [
+        "Dev"
+      ],
+      "size": "S",
+      "priority": "Must",
+      "week": 1,
+      "deps": [
+        "T01"
+      ],
+      "status": "blocked",
+      "assignees": [],
+      "waiting_on": [
+        "T01"
+      ],
+      "unlocks": [],
+      "step": 1,
+      "chain": 1,
+      "critical": true
+    },
+    {
+      "id": "T03",
+      "title": "Write the first user story and spec",
+      "issue": 3,
+      "owner": "Dev",
+      "roles": [
+        "Dev"
+      ],
+      "size": "S",
+      "priority": "Should",
+      "week": 1,
+      "deps": [
+        "T01"
+      ],
+      "status": "blocked",
+      "assignees": [],
+      "waiting_on": [
+        "T01"
+      ],
+      "unlocks": [],
+      "step": 1,
+      "chain": 1,
+      "critical": false
+    }
+  ],
+  "critical_path": [
+    "T01",
+    "T02"
+  ],
+  "suggestions": {
+    "Dev": [
+      "T01"
+    ],
+    "any": [
+      "T01"
+    ]
+  },
+  "counts": {
+    "done": 0,
+    "in_progress": 0,
+    "picked_early": 0,
+    "ready": 1,
+    "blocked": 2
+  },
+  "data_hash": "c7c21e54a4bf9c17"
+}
