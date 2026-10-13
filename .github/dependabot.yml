@@ -1,0 +1,13 @@
+# Keep GitHub Actions current. Add an ecosystem block (npm, uv, pip...) when the project has one.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # init, autobuild and analyze must always run the same CodeQL version.
+      codeql-action:
+        patterns:
+          - "github/codeql-action*"
