@@ -11,6 +11,7 @@ A project set up for AI-assisted development: shared rules, reusable skills, MCP
 | `scripts/` | `sync-skills.sh` (install skills), `task_map.py` (build the map), `board_status.sh` (move a card on the Project board) |
 | `.github/` | PR template, CODEOWNERS, Dependabot, secret scanning and the task-map workflow |
 | `docs/ai-setup.md` | Per-tool setup and the independent-review prompt |
+| `docs/ci.md` | Generic CI instructions: workflow skeleton, required checks, security, CD |
 
 Start with [docs/ai-setup.md](./docs/ai-setup.md).
 

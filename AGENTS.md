@@ -11,6 +11,7 @@ repo_housekeeping: describe the project here.
 - Install: `...`
 - Test: `...`
 - Lint: `...`
+- Full local gate before a PR (same as CI): `...`; see `docs/ci.md`
 
 ## Non-negotiables
 1. **No secrets in the repo.** Use `.env` (git-ignored) and `.env.example`.
